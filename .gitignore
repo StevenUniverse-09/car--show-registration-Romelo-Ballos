@@ -1,0 +1,11 @@
+
+# C# / .NET build files
+bin/
+obj/
+
+# Visual Studio files
+.vs/
+
+# React / Node.js dependencies
+node_modules/
+dist/
