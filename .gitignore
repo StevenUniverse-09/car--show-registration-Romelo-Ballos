@@ -9,3 +9,8 @@ obj/
 # React / Node.js dependencies
 node_modules/
 dist/
+
+# Local SQLite database files
+*.db
+*.db-shm
+*.db-wal
