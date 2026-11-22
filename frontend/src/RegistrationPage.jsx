@@ -1,3 +1,4 @@
+import "./index.css";
 export default function RegistrationPage() {
 
     //Array of KPI items to display in the cards
@@ -29,22 +30,31 @@ export default function RegistrationPage() {
         </div>
       </header>
 
-//---------Cards---------//
             
-      <main className="mx-auto max-w-7xl px-6 py-6 space-y-6">
-        <section className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-5">
-          {kpiItems.map((item) => (
-            <div key={item.label} className="rounded-lg border bg-white p-4">
-              <div className="flex items-start justify-between gap-2">
-                <span className="text-xs font-medium text-gray-500">{item.label}</span>
-                <div className="h-6 w-6 rounded border bg-gray-50" />
-              </div>
-              <div className="mt-2 text-2xl font-bold text-gray-900">{item.value}</div>
-              <div className="mt-2 border-t pt-2 text-xs text-gray-400">{item.subtext}</div>
-            </div>
-          ))}
-        </section>
-      </main>
+      <section className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-5">
+  {kpiItems.map((item) => (
+    <div
+      key={item.label}
+      className="flex flex-col justify-between rounded border border-gray-300 bg-white p-4"
+    >
+      <div className="flex items-start justify-between gap-2">
+        <span className="text-sm text-gray-700">{item.label}</span>
+        <span
+          aria-hidden="true"
+          className="flex h-6 w-6 shrink-0 items-center justify-center border border-gray-400 text-xs text-gray-500"
+        >
+          
+        </span>
+      </div>
+
+      <div className="my-3 text-2xl font-bold tracking-tight text-gray-900">
+        {item.value}
+      </div>
+
+      <div className="h-1.5 w-24 rounded bg-gray-200" />
+    </div>
+  ))}
+</section>
 
 
     </div>
