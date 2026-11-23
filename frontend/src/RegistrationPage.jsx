@@ -42,24 +42,22 @@ export default function RegistrationPage() {
   const endItem = Math.min(page * pageSize, totalCount);
   const pageNumbers = Array.from({ length: Math.max(1, totalPages) }, (_, i) => i + 1);
 
-
-
- return (
-    <div className="min-h-screen bg-gray-50">
-      <header className="flex items-center justify-between border-b bg-white px-6 py-4">
+  return (
+    <div className="min-h-screen bg-gradient-to-l from-[#FBE0C6] via-yellow-400/10 to-[#EBCFBC] text-slate-900">
+      <header className="flex items-center justify-between bg-gradient-to-r from-red-700 via-orange-600 to-amber-500 px-6 py-4 text-white shadow-sm">
         <div className="flex items-center gap-3">
-          <div className="flex h-9 w-9 items-center justify-center rounded border font-bold">
+          <div className="flex h-9 w-9 items-center justify-center rounded-lg border border-white/30 bg-white/15 font-bold">
             {/* AV placeholder */}
           </div>
           <div>
-            <h1 className="text-lg font-bold leading-tight">Car Show 2027</h1>
-            <p className="text-xs text-gray-500">AutoVista Events • Registration Desk Sorsogon</p>
+            <h1 className="text-lg font-bold leading-tight text-white">Car Show 2027</h1>
+            <p className="text-xs text-amber-100">AutoVista Events • Registration Desk Sorsogon</p>
           </div>
         </div>
 
         <div className="flex items-center gap-3">
-          <span className="text-sm text-gray-600">Event Staff</span>
-          <div className="h-8 w-8 rounded-full border bg-gray-100" />
+          <span className="text-sm font-medium text-white">Event Staff</span>
+          <div className="h-8 w-8 rounded-full border border-white/40 bg-white/20" />
         </div>
       </header>
 
@@ -68,29 +66,29 @@ export default function RegistrationPage() {
           {kpiItems.map((item) => (
             <div
               key={item.label}
-              className="flex flex-col justify-between rounded border border-gray-300 bg-white p-4"
+              className="flex flex-col justify-between rounded-xl border border-orange-600 bg-gradient-to-r from-orange-500 to-[#FAA666] p-4 text-white shadow-sm"
             >
               <div className="flex items-start justify-between gap-2">
-                <span className="text-sm text-gray-700">{item.label}</span>
+                <span className="text-sm text-slate-950 ">{item.label}</span>
                 <span
                   aria-hidden="true"
-                  className="flex h-6 w-6 shrink-0 items-center justify-center border border-gray-400 text-xs text-gray-500"
+                  className="flex h-6 w-6 shrink-0 items-center justify-center rounded border border-orange-200 bg-orange-50 text-xs text-orange-600"
                 />
               </div>
 
-              <div className="my-3 text-2xl font-bold tracking-tight text-gray-900">
+              <div className="my-3 text-2xl font-bold tracking-tight text-slate-900">
                 {item.value}
               </div>
 
-              <div className="h-1.5 w-24 rounded bg-gray-200" />
+              <div className="h-1.5 w-24 rounded-full bg-gradient-to-r from-red-500 via-orange-400 to-amber-300" />
             </div>
           ))}
         </section>
 
-        <section className="rounded border border-gray-300 bg-white">
+        <section className="overflow-hidden rounded-xl border border-slate-200 bg-gradient-to-r from-orange-500 to-[#FAA666] shadow-sm">
           {/* Filter Toolbar */}
-          <div className="flex flex-wrap items-center justify-between gap-3 border-b border-gray-200 p-4">
-            <h2 className="text-lg font-semibold text-gray-900">Registrations</h2>
+          <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-200 p-4">
+            <h2 className="text-lg font-bold text-slate-900">Registrations</h2>
 
             <div className="flex flex-wrap items-center gap-2">
               <input
@@ -101,7 +99,7 @@ export default function RegistrationPage() {
                   setPage(1);
                 }}
                 placeholder="Search participant name..."
-                className="w-64 rounded border border-gray-300 px-3 py-1.5 text-sm text-gray-700 placeholder:text-gray-400"
+                className="w-64 rounded-lg border border-slate-300 px-3 py-1.5 text-sm text-slate-700 placeholder:text-slate-400 focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/20"
               />
 
               <select
@@ -110,7 +108,7 @@ export default function RegistrationPage() {
                   setTypeFilter(e.target.value);
                   setPage(1);
                 }}
-                className="rounded border border-gray-300 bg-white px-3 py-1.5 text-sm text-gray-700"
+                className="rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-sm text-slate-700 focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/20"
               >
                 <option value="">All Types</option>
                 <option value="Exhibitor">Exhibitor</option>
@@ -124,7 +122,7 @@ export default function RegistrationPage() {
                   setStatusFilter(e.target.value);
                   setPage(1);
                 }}
-                className="rounded border border-gray-300 bg-white px-3 py-1.5 text-sm text-gray-700"
+                className="rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-sm text-slate-700 focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/20"
               >
                 <option value="">All Statuses</option>
                 <option value="Pending">Pending</option>
@@ -141,7 +139,7 @@ export default function RegistrationPage() {
                   setStatusFilter("");
                   setPage(1);
                 }}
-                className="rounded border border-gray-300 bg-gray-50 px-3 py-1.5 text-sm font-medium text-gray-700 hover:bg-gray-100"
+                className="rounded-lg border border-slate-300 bg-slate-50 px-3 py-1.5 text-sm font-medium text-slate-700 hover:bg-orange-50 hover:text-orange-700"
               >
                 Clear
               </button>
@@ -150,8 +148,8 @@ export default function RegistrationPage() {
 
           {/* Table */}
           <div className="overflow-x-auto">
-            <table className="min-w-full divide-y divide-gray-200 text-left text-sm">
-              <thead className="bg-gray-50 text-xs font-semibold uppercase tracking-wider text-gray-600">
+            <table className="min-w-full divide-y divide-slate-200 text-left text-sm ">
+              <thead className="bg-slate-50 text-xs font-semibold uppercase tracking-wider text-slate-600 ">
                 <tr>
                   <th className="px-4 py-3">Registration No.</th>
                   <th className="px-4 py-3">Date</th>
@@ -164,10 +162,10 @@ export default function RegistrationPage() {
                 </tr>
               </thead>
 
-              <tbody className="divide-y divide-gray-200 bg-white text-gray-800">
+              <tbody className="divide-y divide-slate-200 bg-white text-slate-800">
                 {isLoading ? (
                   <tr>
-                    <td colSpan={8} className="px-4 py-8 text-center text-sm text-gray-500">
+                    <td colSpan={8} className="px-4 py-8 text-center text-sm text-slate-500">
                       Loading registrations...
                     </td>
                   </tr>
@@ -179,30 +177,30 @@ export default function RegistrationPage() {
                   </tr>
                 ) : registrations.length === 0 ? (
                   <tr>
-                    <td colSpan={8} className="px-4 py-8 text-center text-sm text-gray-500">
+                    <td colSpan={8} className="px-4 py-8 text-center text-sm text-slate-500">
                       No registrations to display yet.
                     </td>
                   </tr>
                 ) : (
                   registrations.map((row) => (
-                    <tr key={row.id} className="hover:bg-gray-50">
-                      <td className="whitespace-nowrap px-4 py-3 font-medium text-gray-900">
+                    <tr key={row.id} className="hover:bg-amber-50/40">
+                      <td className="whitespace-nowrap px-4 py-3 font-medium text-slate-900">
                         {row.registrationNumber}
                       </td>
-                      <td className="whitespace-nowrap px-4 py-3 text-gray-600">
+                      <td className="whitespace-nowrap px-4 py-3 text-slate-600">
                         {row.registrationDate}
                       </td>
                       <td className="px-4 py-3">
-                        <div className="font-medium text-gray-900">{row.participantName}</div>
-                        <div className="text-xs text-gray-500">
+                        <div className="font-medium text-slate-900">{row.participantName}</div>
+                        <div className="text-xs text-slate-500">
                           {row.contactNumber || row.email || row.contactInfo}
                         </div>
                       </td>
                       <td className="px-4 py-3">
-                        <div className="font-medium text-gray-900">{row.carMakeModel}</div>
-                        <div className="text-xs text-gray-500">{row.plateNumber}</div>
+                        <div className="font-medium text-slate-900">{row.carMakeModel}</div>
+                        <div className="text-xs text-slate-500">{row.plateNumber}</div>
                       </td>
-                      <td className="whitespace-nowrap px-4 py-3 text-gray-700">
+                      <td className="whitespace-nowrap px-4 py-3 text-slate-700">
                         {row.registrationType}
                       </td>
                       <td className="whitespace-nowrap px-4 py-3">
@@ -210,7 +208,7 @@ export default function RegistrationPage() {
                           {row.status}
                         </span>
                       </td>
-                      <td className="whitespace-nowrap px-4 py-3 text-right font-medium text-gray-900">
+                      <td className="whitespace-nowrap px-4 py-3 text-right font-medium text-slate-900">
                         {`${formatPeso(row.registrationFee)} / ${formatPeso(row.amountPaid)}`}
                       </td>
                       <td className="whitespace-nowrap px-4 py-3">
@@ -232,15 +230,13 @@ export default function RegistrationPage() {
               </tbody>
             </table>
           </div>
-          
 
-{/*Paging container*/}
-{/* Paging container */}
-          <div className="flex flex-wrap items-center justify-between gap-4 border-t border-gray-200 px-4 py-3 text-sm text-gray-700">
+          {/* Paging container */}
+          <div className="flex flex-wrap items-center justify-between gap-4 border-t border-slate-200 px-4 py-3 text-sm text-slate-700">
             <div>
-              Showing <span className="font-semibold text-gray-900">{startItem}</span>–
-              <span className="font-semibold text-gray-900">{endItem}</span> of{" "}
-              <span className="font-semibold text-gray-900">{totalCount}</span>
+              Showing <span className="font-semibold text-slate-900">{startItem}</span>–
+              <span className="font-semibold text-slate-900">{endItem}</span> of{" "}
+              <span className="font-semibold text-slate-900">{totalCount}</span>
             </div>
 
             <div className="flex flex-wrap items-center gap-1">
@@ -248,7 +244,7 @@ export default function RegistrationPage() {
                 type="button"
                 disabled={isLoading || page <= 1}
                 onClick={() => setPage((p) => Math.max(1, p - 1))}
-                className="rounded border border-gray-300 bg-white px-2.5 py-1 text-sm text-gray-700 hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-50"
+                className="rounded-lg border border-slate-300 bg-white px-2.5 py-1 text-sm text-slate-700 hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-50"
               >
                 &lt;
               </button>
@@ -261,10 +257,10 @@ export default function RegistrationPage() {
                     type="button"
                     disabled={isLoading}
                     onClick={() => setPage(pageNum)}
-                    className={`rounded border px-3 py-1 text-sm font-medium disabled:cursor-not-allowed disabled:opacity-50 ${
+                    className={`rounded-lg border px-3 py-1 text-sm font-medium disabled:cursor-not-allowed disabled:opacity-50 ${
                       isCurrent
-                        ? "border-gray-900 bg-gray-900 text-white"
-                        : "border-gray-300 bg-white text-gray-700 hover:bg-gray-50"
+                        ? "border-orange-600 bg-gradient-to-r from-red-600 to-orange-500 text-white shadow-sm"
+                        : "border-slate-300 bg-white text-slate-700 hover:bg-slate-50"
                     }`}
                   >
                     {pageNum}
@@ -276,14 +272,14 @@ export default function RegistrationPage() {
                 type="button"
                 disabled={isLoading || page >= totalPages}
                 onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
-                className="rounded border border-gray-300 bg-white px-2.5 py-1 text-sm text-gray-700 hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-50"
+                className="rounded-lg border border-slate-300 bg-white px-2.5 py-1 text-sm text-slate-700 hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-50"
               >
                 &gt;
               </button>
             </div>
 
             <div className="flex items-center gap-2">
-              <label htmlFor="pageSizeSelect" className="text-xs text-gray-500">
+              <label htmlFor="pageSizeSelect" className="text-xs text-slate-500">
                 Per page
               </label>
               <select
@@ -294,7 +290,7 @@ export default function RegistrationPage() {
                   setPageSize(Number(e.target.value));
                   setPage(1);
                 }}
-                className="rounded border border-gray-300 bg-white px-2.5 py-1 text-sm text-gray-700 disabled:cursor-not-allowed disabled:opacity-50"
+                className="rounded-lg border border-slate-300 bg-white px-2.5 py-1 text-sm text-slate-700 focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/20 disabled:cursor-not-allowed disabled:opacity-50"
               >
                 <option value={5}>5</option>
                 <option value={10}>10</option>
@@ -309,5 +305,3 @@ export default function RegistrationPage() {
     </div>
   );
 }
-
-
