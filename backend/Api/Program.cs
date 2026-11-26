@@ -72,7 +72,15 @@ builder.Services.AddCors(options =>
 
 
 
+
 // API
+builder.Services.AddProblemDetails();
+
+builder.Services.Configure<RouteHandlerOptions>(options =>
+{
+    options.ThrowOnBadRequest = false;
+});
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddOpenApi(options =>
 {
@@ -89,6 +97,9 @@ var app = builder.Build();
 
 // Enable CORS
 app.UseCors("ReactFrontend");
+// Error handling
+app.UseExceptionHandler();
+app.UseStatusCodePages();
 
 
 // Seed data
