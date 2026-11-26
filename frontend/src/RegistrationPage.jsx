@@ -101,11 +101,11 @@ useEffect(() => {
     })}`;
 
   const kpiItems = [
-    { label: "Total Registrations", value: summary.totalRegistrations },
-    { label: "Total Payments", value: formatPeso(summary.totalPayments) },
-    { label: "Uncollected Payments", value: formatPeso(summary.uncollectedPayments) },
-    { label: "Confirmed", value: summary.confirmed },
-    { label: "Checked In", value: summary.checkedIn },
+    { label: "Total Registrations", value: summary.totalRegistrations, dotClass: "bg-orange-500"},
+    { label: "Total Payments", value: formatPeso(summary.totalPayments), dotClass: "bg-emerald-500" },
+    { label: "Uncollected Payments", value: formatPeso(summary.uncollectedPayments), dotClass: "bg-amber-400" },
+    { label: "Confirmed", value: summary.confirmed, dotClass: "bg-blue-500" },
+    { label: "Checked In", value: summary.checkedIn, dotClass: "bg-violet-500" },
   ];
 
   const startItem = totalCount === 0 ? 0 : (page - 1) * pageSize + 1;
@@ -136,21 +136,21 @@ useEffect(() => {
           {kpiItems.map((item) => (
             <div
               key={item.label}
-              className="flex flex-col justify-between rounded-xl border border-orange-600 bg-gradient-to-r from-orange-500 to-[#FAA666] p-4 text-white shadow-sm"
+              className="rounded-xl bg-gradient-to-r from-amber-300 via-yellow-400 to-orange-500 p-[1px] shadow-[0_6px_14px_-4px_rgba(249,115,22,0.22)]"
             >
-              <div className="flex items-start justify-between gap-2">
-                <span className="text-sm text-slate-950 ">{item.label}</span>
-                <span
-                  aria-hidden="true"
-                  className="flex h-6 w-6 shrink-0 items-center justify-center rounded border border-orange-200 bg-orange-50 text-xs text-orange-600"
-                />
-              </div>
+              <div className="flex h-full flex-col justify-between rounded-[11px] bg-white p-4">
+                <div className="flex items-center justify-between gap-2">
+                  <span className="text-sm font-medium text-slate-600">{item.label}</span>
+                  <span
+                    aria-hidden="true"
+                    className={`h-2.5 w-2.5 shrink-0 rounded-full ${item.dotClass}`}
+                  />
+                </div>
 
-              <div className="my-3 text-2xl font-bold tracking-tight text-slate-900">
-                {item.value}
+                <div className="mt-3 text-2xl font-bold tracking-tight text-slate-900">
+                  {item.value}
+                </div>
               </div>
-
-              <div className="h-1.5 w-24 rounded-full bg-gradient-to-r from-red-500 via-orange-400 to-amber-300" />
             </div>
           ))}
         </section>
