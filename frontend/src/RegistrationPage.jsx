@@ -1,20 +1,42 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";useState
+import { getRegistrations, getSummary } from "./Api/registration";
 import "./index.css";
 
 export default function RegistrationPage() {
   // Standby state (ready to populate when connected to API / database)
-  const [summary, setSummary] = useState({
-    totalRegistrations: 0,
-    totalPayments: 0,
-    uncollectedPayments: 0,
-    confirmed: 0,
-    checkedIn: 0,
-  });
+const [summary, setSummary] = useState({
+  totalRegistrations: 0,
+  confirmed: 0,
+  checkedIn: 0,
+  pending: 0,
+  cancelled: 0,
+  totalFees: 0,
+  totalPayments: 0,
+  uncollectedPayments: 0,
+});
 
   const [registrations, setRegistrations] = useState([]);
   const [search, setSearch] = useState("");
   const [typeFilter, setTypeFilter] = useState("");
   const [statusFilter, setStatusFilter] = useState("");
+  const [debouncedSearch, setDebouncedSearch] = useState("");
+
+   {/*Load Summary Data*/}
+  useEffect(() => {
+  let active = true;
+
+  getSummary()
+    .then((data) => {
+      if (active) setSummary(data);
+    })
+    .catch((requestError) => {
+      if (active) setError(requestError.message);
+    });
+
+  return () => {
+    active = false;
+  };
+}, []);
 
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
@@ -23,6 +45,54 @@ export default function RegistrationPage() {
 
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  {/*Add api Error Key*/}
+  const [reloadKey, setReloadKey] = useState(0);
+
+  useEffect(() => {
+  const timeoutId = window.setTimeout(() => {
+    setDebouncedSearch(search);
+  }, 400);
+
+  return () => window.clearTimeout(timeoutId);
+}, [search]);
+
+useEffect(() => {
+  let active = true;
+
+  setIsLoading(true);
+  setError(null);
+
+  {/*Load Registrations*/}
+  getRegistrations({
+    participantName: debouncedSearch,
+    type: typeFilter,
+    status: statusFilter,
+    page,
+    pageSize,
+  })
+    .then((data) => {
+      if (!active) return;
+
+      setRegistrations(data.items);
+      setTotalCount(data.totalCount);
+      setTotalPages(data.totalPages);
+
+      if (data.page !== page) setPage(data.page);
+    })
+    .catch((requestError) => {
+      if (active) {
+        setRegistrations([]);
+        setError(requestError.message);
+      }
+    })
+    .finally(() => {
+      if (active) setIsLoading(false);
+    });
+
+  return () => {
+    active = false;
+  };
+}, [debouncedSearch, typeFilter, statusFilter, page, pageSize]);
 
   const formatPeso = (amount) =>
     `₱${Number(amount || 0).toLocaleString("en-PH", {
@@ -172,13 +242,32 @@ export default function RegistrationPage() {
                 ) : error ? (
                   <tr>
                     <td colSpan={8} className="px-4 py-8 text-center text-sm text-red-600">
-                      {error}
+                      <div>{error}</div>
+                        <button
+                        type="button"
+                        onClick={() => setReloadKey((current) => current + 1)}
+                        className="mt-2 rounded-lg border border-red-300 bg-white px-3 py-1.5"
+                        >
+                        Try again
+                      </button>
                     </td>
                   </tr>
                 ) : registrations.length === 0 ? (
                   <tr>
                     <td colSpan={8} className="px-4 py-8 text-center text-sm text-slate-500">
-                      No registrations to display yet.
+                      No registrations match your filters. :3
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setSearch("");
+                          setTypeFilter("");
+                          setStatusFilter("");
+                          setPage(1);
+                        }}
+                        className="ml-3 rounded-lg border border-slate-300 bg-white px-3 py-1.5"
+                      >
+                        Clear filters
+                      </button>
                     </td>
                   </tr>
                 ) : (
@@ -188,7 +277,10 @@ export default function RegistrationPage() {
                         {row.registrationNumber}
                       </td>
                       <td className="whitespace-nowrap px-4 py-3 text-slate-600">
-                        {row.registrationDate}
+                        {new Intl.DateTimeFormat("en-PH", {
+                         dateStyle: "medium",
+                           timeStyle: "short",
+                            }).format(new Date(row.registrationDate))}
                       </td>
                       <td className="px-4 py-3">
                         <div className="font-medium text-slate-900">{row.participantName}</div>
