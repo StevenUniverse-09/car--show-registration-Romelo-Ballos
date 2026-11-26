@@ -94,11 +94,10 @@ app.UseCors("ReactFrontend");
 // Seed data
 using (var scope = app.Services.CreateScope())
 {
-    var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    var dbContext = scope.ServiceProvider
+        .GetRequiredService<AppDbContext>();
 
-    // dbContext.<Entities>.AddRange(...);
-
-    dbContext.SaveChanges();
+    await DatabaseSeeder.SeedAsync(dbContext);
 }
 
 // Configure the HTTP request pipeline
